@@ -1,8 +1,8 @@
 # Weight Space Representation Learning on Diverse NeRF Architectures (ICLR 2026)
 
-![Teaser](https://cvlab-unibo.github.io/gmnerf/static/images/teaser.svg)
-
 [[Paper](https://arxiv.org/abs/2502.09623) | [Data](https://huggingface.co/datasets/frallebini/gmnerf)]
+
+![Teaser](https://cvlab-unibo.github.io/gmnerf/static/images/teaser.svg)
 
 ## Setup
 ### Option A
