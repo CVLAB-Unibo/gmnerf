@@ -1,0 +1,142 @@
+"""
+# ####################
+# NERF2VEC
+# ####################
+"""
+#
+# DIMENSIONS
+#
+ENCODER_EMBEDDING_DIM = 1024
+
+DECODER_INPUT_DIM = 3
+DECODER_HIDDEN_DIM = 1024
+DECODER_NUM_HIDDEN_LAYERS_BEFORE_SKIP = 2
+DECODER_NUM_HIDDEN_LAYERS_AFTER_SKIP = 2
+DECODER_OUT_DIM = 4
+
+# 
+# TRAINING
+#
+BG_WEIGHT = 0.2
+FG_WEIGHT = 1 - BG_WEIGHT
+
+"""
+# ####################
+# NERFACC
+# ####################
+"""
+#
+# OCCUPANCY GRID
+#
+from nerfacc import ContractionType
+GRID_CONTRACTION_TYPE = ContractionType.AABB
+GRID_AABB = [-0.7, -0.7, -0.7, 0.7, 0.7, 0.7]
+GRID_RESOLUTION = 96
+GRID_CONFIG_N_SAMPLES = 1024
+GRID_NUMBER_OF_CELLS = GRID_RESOLUTION ** 3
+GRID_BACKGROUND_CELLS_TO_SAMPLE = 32000
+
+#
+# RAYS
+#
+NUM_RAYS = 55000
+MAX_FOREGROUND_COORDINATES = 25000
+MAX_BACKGROUND_COORDINATES = 10000
+
+#
+# ARCHITECTURES 
+#
+MLP_INPUT_SIZE = 3
+MLP_ENCODING_SIZE = 24
+MLP_INPUT_SIZE_AFTER_ENCODING = MLP_INPUT_SIZE * MLP_ENCODING_SIZE * 2
+MLP_OUTPUT_SIZE = 4
+MLP_PADDED_OUTPUT_SIZE = 16
+MLP_HIDDEN_LAYERS = 3
+MLP_UNITS = 64
+
+TRIPLANE_IN_SIZE = 3
+TRIPLANE_ENC_SIZE = 48
+TRIPLANE_FEAT_SIZE = 16
+TRIPLANE_RES = 32
+TRIPLANE_IN_SIZE_AFTER_ENC = TRIPLANE_IN_SIZE * TRIPLANE_ENC_SIZE * 2
+TRIPLANE_OUT_SIZE = 4
+TRIPLANE_PADDED_OUT_SIZE = 16
+TRIPLANE_HID_LAYERS = 3
+TRIPLANE_HID_UNITS = 64
+
+HASH_IN_SIZE = 3
+HASH_LEVELS = 4
+HASH_FEATURES_PER_ENTRY = 2
+HASH_LOG2_TAB_SIZE = 12
+HASH_MIN_RES = 16
+HASH_MAX_RES = 128
+HASH_PADDED_IN_SIZE = 16
+HASH_HID_LAYERS = 3
+HASH_HID_UNITS = 64
+HASH_PADDED_OUT_SIZE = 16
+
+MLP_CONF = {
+    "aabb": GRID_AABB,
+    "num_dim": MLP_INPUT_SIZE,
+    "unbounded": False,
+    "encoding": "Frequency",
+    "mlp": "FullyFusedMLP",
+    "activation": "ReLU",
+    "n_hidden_layers": MLP_HIDDEN_LAYERS,
+    "n_neurons": MLP_UNITS,
+    "encoding_size": MLP_ENCODING_SIZE
+}
+
+TRIPLANE_CONF = {
+    "aabb": GRID_AABB,
+    "num_dim": TRIPLANE_IN_SIZE,
+    "unbounded": False,
+    "encoding": "Frequency",
+    "mlp": "CutlassMLP",
+    "activation": "Sine",
+    "n_hidden_layers": TRIPLANE_HID_LAYERS,
+    "n_neurons": TRIPLANE_HID_UNITS,
+    "encoding_size": TRIPLANE_ENC_SIZE,
+    "triplane_res": TRIPLANE_RES,
+    "triplane_feat_dim": TRIPLANE_FEAT_SIZE
+}
+
+HASH_CONF = {
+    "aabb": GRID_AABB,
+    "num_dim": HASH_IN_SIZE,
+    "unbounded": False,
+    "mlp": "FullyFusedMLP",
+    "activation": "ReLU",
+    "n_hidden_layers": HASH_HID_LAYERS,
+    "n_neurons": HASH_HID_UNITS,
+    "n_levels": HASH_LEVELS,
+    "n_features_per_level": HASH_FEATURES_PER_ENTRY,
+    "log2_hashmap_size": HASH_LOG2_TAB_SIZE,
+    "base_resolution": HASH_MIN_RES,
+    "max_resolution": HASH_MAX_RES
+}
+
+MLP_ENCODING_CONF = {
+    "otype": "Frequency",
+    "n_frequencies": MLP_ENCODING_SIZE
+}
+
+TRIPLANE_ENCODING_CONF = {
+    "otype": "Frequency",
+    "n_frequencies": TRIPLANE_ENC_SIZE
+}
+
+"""
+# ####################
+# LOGGING
+# ####################
+"""
+WANDB_CONFIG = {
+    "DECODER_INPUT_DIM": DECODER_INPUT_DIM,
+    "DECODER_HIDDEN_DIM": DECODER_HIDDEN_DIM,
+    "DECODER_NUM_HIDDEN_LAYERS_BEFORE_SKIP": DECODER_NUM_HIDDEN_LAYERS_BEFORE_SKIP,
+    "DECODER_NUM_HIDDEN_LAYERS_AFTER_SKIP": DECODER_NUM_HIDDEN_LAYERS_AFTER_SKIP,
+    "DECODER_OUT_DIM": DECODER_OUT_DIM,
+    "NUM_RAYS": NUM_RAYS,
+    "GRID_RESOLUTION": GRID_RESOLUTION
+}
