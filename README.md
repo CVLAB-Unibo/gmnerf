@@ -1,19 +1,21 @@
 # Weight Space Representation Learning on Diverse NeRF Architectures (ICLR 2026)
 
-[[Paper](https://arxiv.org/abs/2502.09623) | [Data](https://huggingface.co/datasets/frallebini/gmnerf)]
+[![paper](https://img.shields.io/badge/arxiv-paper-darkred?logo=arxiv)](https://arxiv.org/abs/2502.09623)
+[![datasets](https://img.shields.io/badge/huggingface-datasets-teal?logo=huggingface)](https://huggingface.co/datasets/frallebini/gmnerf)
+[![models](https://img.shields.io/badge/huggingface-models-plum?logo=huggingface)](https://huggingface.co/frallebini/gmnerf)
 
-![Teaser](https://cvlab-unibo.github.io/gmnerf/static/images/teaser.svg)
+![teaser](https://cvlab-unibo.github.io/gmnerf/static/images/teaser.svg)
 
 ## Setup
 ### Option A
 Create a `conda` virtual environment and install the required libraries:
-```bash
+```
 $ conda env create -f environment.yml
 ```
 
 ### Option B
 If option A fails, follow instead [this guide](https://github.com/CVLAB-Unibo/nf2vec?tab=readme-ov-file#nf2vec-1) and then run:
-```bash
+```
 $ pip install torch_geometric torch_scatter scikit-learn
 ```
 ## Data
@@ -24,8 +26,10 @@ By default, our scripts look for data in the `./data` directory. Otherwise, you 
 
 ## Training
 
-To train one of our models, run [`train.py`](train.py) with the required command-line arguments. For example, to train the $`\mathcal{L}_\text{R+C}`$ model, run:
-```bash
+Model weights can be downloaded from [here](https://huggingface.co/frallebini/gmnerf/tree/main). Once downloaded, place them in a directory called `./ckpts` and keep the directory structure described [here](https://huggingface.co/frallebini/gmnerf#directory-structure).
+
+To train one of our models yourself, run [`train.py`](train.py) with the required command-line arguments. For example, to train the $`\mathcal{L}_\text{R+C}`$ model, run:
+```
 $ python train.py --loss l_rec_con --wandb-user ... --wandb-project ... --data-root ...
 ```
 The other choices for `--loss` are `l_rec` (aka $`\mathcal{L}_\text{R}`$) and `l_con` (aka $`\mathcal{L}_\text{C}`$). 
@@ -35,28 +39,28 @@ If graphs for training and validation NeRFs are not present in `--data-root`, `t
 ## Graph computation
 
 NeRF graphs can be downloaded from [here](https://huggingface.co/datasets/frallebini/gmnerf/tree/main/graph). To compute them yourself, run [`export_graphs.py`](export_graphs.py) with the required command-line arguments. For example, to compute the graphs of NeRFs belonging to the test set of $`\texttt{MLP}`$, run:
-```bash
+```
 $ python export_graphs.py --data-root ... --dataset shapenet --arch mlp --split test
 ```
 
 ## Embedding computation
 
 NeRF embeddings can be downloaded from [here](https://huggingface.co/datasets/frallebini/gmnerf/tree/main/emb). To compute them yourself, download/export the corresponding NeRF graphs first (see previous section) and then run [`export_embs.py`](export_embs.py) with the required command-line arguments. For example, to compute the embeddings produced by the trained $`\mathcal{L}_\text{R+C}`$ encoder when ingesting NeRFs belonging to the test set of $`\texttt{MLP}`$, run:
-```bash
+```
 $ python export_embs.py --ckpt_name l_rec_con --data.root ... --dataset shapenet --arch mlp --split test
 ```
 
 ## Classification
 
 To perform classification, download/export the desired NeRF embeddings first (see previous section) and then run [`classify.py`](classify.py) with the required command-line arguments. For example, to train a classifier on the embeddings produced by the trained $`\mathcal{L}_\text{R+C}`$ encoder when ingesting NeRFs belonging to $`\texttt{MLP}`$, run:
-```bash
+```
 $ python classify.py --ckpt-name l_rec_con --wandb-user ... --wandb-project ... --data-root ... --arch mlp
 ```
 
 ## Retrieval
 
 To perform retrieval, download/export the desired NeRF embeddings first (see previous section) and then run [`retrieve.py`](retrieve.py) with the required command-line arguments. For example, to perform the retrieval experiment on $`\mathcal{L}_\text{R+C}`$ embeddings where query NeRFs belong to $`\texttt{MLP}`$ and gallery NeRFs belong to $`\texttt{TRI}`$, run:
-```bash
+```
 $ python retrieve.py --ckpt-name l_rec_con --wandb-user ... --wandb-project ... --data-root ... --query-arch mlp --gallery-arch triplane
 ```
 
