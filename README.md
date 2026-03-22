@@ -6,7 +6,7 @@
 
 ![teaser](https://cvlab-unibo.github.io/gmnerf/static/images/teaser.svg)
 
-## Setup
+## Installation
 ### Option A
 Create a `conda` virtual environment and install the required libraries:
 ```
@@ -64,14 +64,18 @@ To perform retrieval, download/export the desired NeRF embeddings first (see pre
 $ python retrieve.py --ckpt-name l_rec_con --wandb-user ... --wandb-project ... --data-root ... --query-arch mlp --gallery-arch triplane
 ```
 
+## Language tasks
+
+Our NeRF captioning and retrieval results can be reproduced by running the [official LLaNA code](https://github.com/CVLAB-Unibo/LLaNA) with our `(emb, text)` dataset, where `emb` is a NeRF embedding produced by our trained $`\mathcal{L}_\text{R+C}`$ encoder and `text` is a textual annotation from [ShapeNeRF-Text](https://huggingface.co/datasets/andreamaduzzi/ShapeNeRF-Text/tree/main). This dataset can be found [here](https://huggingface.co/datasets/frallebini/gmnerf/tree/main/language). 
+
 ## Cite us
 
 If you find our work useful, please cite us:
 
 ```bibtex
 @inproceedings{ballerini2026weight,
-  title     = {Weight Space Representation Learning on Diverse {NeRF} Architectures},
-  author    = {Ballerini, Francesco and Zama Ramirez, Pierluigi and Di Stefano, Luigi and Salti, Samuele},
+  title = {Weight Space Representation Learning on Diverse {NeRF} Architectures},
+  author = {Ballerini, Francesco and Zama Ramirez, Pierluigi and Di Stefano, Luigi and Salti, Samuele},
   booktitle = {The Fourteenth International Conference on Learning Representations},
-  year      = {2026}
+  year = {2026}
 ```
