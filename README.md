@@ -78,4 +78,5 @@ If you find our work useful, please cite us:
   author = {Ballerini, Francesco and Zama Ramirez, Pierluigi and Di Stefano, Luigi and Salti, Samuele},
   booktitle = {The Fourteenth International Conference on Learning Representations},
   year = {2026}
+}
 ```
