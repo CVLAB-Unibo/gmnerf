@@ -6,6 +6,8 @@
 
 ![teaser](https://cvlab-unibo.github.io/gmnerf/static/images/teaser.svg)
 
+This repository contains the code for the paper [Weight Space Representation Learning on Diverse NeRF Architectures](https://arxiv.org/abs/2502.09623). The paper proposes a framework that is capable of processing NeRFs with diverse architectures (MLPs, tri-planes, and hash tables) by training a graph metanetwork to obtain an architecture-agnostic latent space.
+
 ## Installation
 ### Option A
 Create a `conda` virtual environment and install the required libraries:
